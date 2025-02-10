@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: white;
+    background: #0f172a;
     color: #f8fafc;
   }
 `;
@@ -261,7 +261,7 @@ function ForumPage() {
       });
 
     // Fetch posts sorted by timestamp
-    axios.get('https://kdag-forum.vercel.app/posts?_sort=createdAt&_order=desc')
+    axios.get('https://kdag-forum.vercel.app/api/posts?_sort=createdAt&_order=desc')
       .then(response => {
         setPosts(response.data);
       })
@@ -284,7 +284,7 @@ function ForumPage() {
       createdAt: new Date().toISOString(),
     };
 
-    axios.post('https://kdag-forum.vercel.app/posts', post)
+    axios.post('https://kdag-forum.vercel.app/api/posts', post)
       .then(response => {
         setPosts([response.data, ...posts]);
         setShowCreateModal(false);
@@ -309,7 +309,7 @@ function ForumPage() {
     const postToUpdate = posts.find(post => post.id === postId);
     const updatedComments = [comment, ...postToUpdate.comments];
 
-    axios.patch(`https://kdag-forum.vercel.app/posts/${postId}`, { comments: updatedComments })
+    axios.patch(`https://kdag-forum.vercel.app/api/posts/${postId}`, { comments: updatedComments })
       .then(response => {
         const updatedPosts = posts.map(post =>
           post.id === postId ? { ...post, comments: response.data.comments } : post
@@ -329,7 +329,7 @@ function ForumPage() {
     const updatedLikes = postToUpdate.likes + 1;
     const updatedLikedBy = [...postToUpdate.likedBy, userIP];
 
-    axios.patch(`https://kdag-forum.vercel.app/posts/${postId}`, { 
+    axios.patch(`https://kdag-forum.vercel.app/api/posts/${postId}`, { 
       likes: updatedLikes,
       likedBy: updatedLikedBy 
     })
