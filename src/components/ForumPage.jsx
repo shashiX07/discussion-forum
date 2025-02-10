@@ -374,7 +374,9 @@ function ForumPage() {
           </CreatePostButton>
         </Header>
 
-        {Array.isArray(posts) && posts.map(post => {
+        {Array.isArray(posts) && posts
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort posts by createdAt
+          .map(post => {
           const isLiked = post.likedBy.includes(userIP);
           return (
             <PostCard key={post.id}>
