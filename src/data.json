@@ -76,13 +76,14 @@
           "createdAt": "2025-02-10T11:50:15Z"
         }
       ],
-      "likes": 27,
+      "likes": 28,
       "likedBy": [
         "192.168.3.1",
         "192.168.3.2",
         "192.168.3.3",
         "192.168.3.4",
-        "192.168.3.5"
+        "192.168.3.5",
+        "203.110.242.41"
       ],
       "username": "data_scholar67",
       "createdAt": "2025-02-09T20:00:55Z"
@@ -105,16 +106,52 @@
           "createdAt": "2025-02-10T13:05:45Z"
         }
       ],
-      "likes": 50,
+      "likes": 51,
       "likedBy": [
         "192.168.4.1",
         "192.168.4.2",
         "192.168.4.3",
         "192.168.4.4",
-        "192.168.4.5"
+        "192.168.4.5",
+        "203.110.242.41"
       ],
       "username": "data_visualizer89",
       "createdAt": "2025-02-09T16:45:10Z"
+    },
+    {
+      "id": "cf35840a-acca-46c9-98c2-c6986c6c7a18",
+      "title": "Python",
+      "description": "Can anybody describe what is python ?\n",
+      "comments": [
+        {
+          "id": "3d0f947c-1045-481e-8759-fb11496b9d94",
+          "text": "Wow! yo don't know what is python ?",
+          "username": "User_242_41",
+          "createdAt": "2025-02-10T04:26:58.095Z"
+        },
+        {
+          "id": "f1f2629d-5fb7-4511-8d0c-5900fca2ad05",
+          "text": "python is a snake",
+          "username": "User_242_41",
+          "createdAt": "2025-02-10T04:26:22.040Z"
+        }
+      ],
+      "likes": 1,
+      "likedBy": [
+        "203.110.242.41"
+      ],
+      "username": "User_242_41",
+      "createdAt": "2025-02-10T04:26:05.362Z"
+    },
+    {
+      "id": "a1372e37-fe95-4590-8f0b-891c2bbf6d87",
+      "title": "something",
+      "description": "wow",
+      "comments": [],
+      "likes": 0,
+      "likedBy": [],
+      "username": "User_242_41",
+      "createdAt": "2025-02-10T05:44:04.683Z"
     }
   ]
 }
