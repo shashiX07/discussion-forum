@@ -1,0 +1,120 @@
+{
+  "posts": [
+    {
+      "id": "123abc",
+      "title": "Best Tools for Data Cleaning in Python",
+      "description": "In this post, I will discuss some of the most efficient Python libraries for cleaning datasets. Let me know what tools you use for cleaning data!",
+      "comments": [
+        {
+          "id": "com1",
+          "text": "Great post! I use Pandas mainly for cleaning data, but I'll give some of the others you mentioned a try.",
+          "username": "data_scientist42",
+          "createdAt": "2025-02-10T08:15:30Z"
+        },
+        {
+          "id": "com2",
+          "text": "You should also look into Dask for larger datasets. It really speeds things up!",
+          "username": "analytics_guru",
+          "createdAt": "2025-02-10T09:05:00Z"
+        }
+      ],
+      "likes": 35,
+      "likedBy": [
+        "192.168.1.1",
+        "192.168.1.2",
+        "192.168.1.3",
+        "192.168.1.4",
+        "192.168.1.5"
+      ],
+      "username": "data_enthusiast91",
+      "createdAt": "2025-02-09T14:25:45Z"
+    },
+    {
+      "id": "456def",
+      "title": "Machine Learning Models for Predictive Analytics",
+      "description": "Looking for recommendations on effective machine learning models for predicting sales data. Any experience with ensemble methods?",
+      "comments": [
+        {
+          "id": "com3",
+          "text": "Ensemble methods like Random Forests and XGBoost are great for this. They perform well with structured data.",
+          "username": "predictive_pioneer",
+          "createdAt": "2025-02-10T10:20:45Z"
+        },
+        {
+          "id": "com4",
+          "text": "I found LightGBM to work wonders for large datasets. Also consider tuning hyperparameters.",
+          "username": "ml_enthusiast",
+          "createdAt": "2025-02-10T10:50:30Z"
+        }
+      ],
+      "likes": 42,
+      "likedBy": [
+        "192.168.2.1",
+        "192.168.2.2",
+        "192.168.2.3",
+        "192.168.2.4",
+        "192.168.2.5"
+      ],
+      "username": "sales_analyst23",
+      "createdAt": "2025-02-09T18:35:20Z"
+    },
+    {
+      "id": "789ghi",
+      "title": "Understanding Feature Engineering in Data Science",
+      "description": "Feature engineering is one of the most critical aspects of building a model. Can anyone share best practices for transforming features in Python?",
+      "comments": [
+        {
+          "id": "com5",
+          "text": "Definitely! I always start with scaling and normalization. You should also try encoding categorical variables properly.",
+          "username": "feature_freak",
+          "createdAt": "2025-02-10T11:12:05Z"
+        },
+        {
+          "id": "com6",
+          "text": "For text data, I recommend using TF-IDF for feature extraction, it’s very useful for NLP tasks.",
+          "username": "nlp_expert",
+          "createdAt": "2025-02-10T11:50:15Z"
+        }
+      ],
+      "likes": 27,
+      "likedBy": [
+        "192.168.3.1",
+        "192.168.3.2",
+        "192.168.3.3",
+        "192.168.3.4",
+        "192.168.3.5"
+      ],
+      "username": "data_scholar67",
+      "createdAt": "2025-02-09T20:00:55Z"
+    },
+    {
+      "id": "012jkl",
+      "title": "Data Visualization Tools: Best Practices",
+      "description": "What are some of the best data visualization tools for building interactive dashboards? Looking for recommendations for data analysis projects.",
+      "comments": [
+        {
+          "id": "com7",
+          "text": "Tableau is my go-to tool for building dashboards, but Power BI is also great for integration with Microsoft products.",
+          "username": "viz_master",
+          "createdAt": "2025-02-10T12:30:00Z"
+        },
+        {
+          "id": "com8",
+          "text": "For Python users, Plotly and Dash work really well. You can create interactive plots and deploy them as web apps.",
+          "username": "python_viz",
+          "createdAt": "2025-02-10T13:05:45Z"
+        }
+      ],
+      "likes": 50,
+      "likedBy": [
+        "192.168.4.1",
+        "192.168.4.2",
+        "192.168.4.3",
+        "192.168.4.4",
+        "192.168.4.5"
+      ],
+      "username": "data_visualizer89",
+      "createdAt": "2025-02-09T16:45:10Z"
+    }
+  ]
+}
