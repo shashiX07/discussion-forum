@@ -261,7 +261,7 @@ function ForumPage() {
       });
 
     // Fetch posts sorted by timestamp
-    axios.get('/posts?_sort=createdAt&_order=desc')
+    axios.get('http://127.0.0.1:3001/posts?_sort=createdAt&_order=desc')
       .then(response => {
         setPosts(response.data);
       })
@@ -284,7 +284,7 @@ function ForumPage() {
       createdAt: new Date().toISOString(),
     };
 
-    axios.post('/posts', post)
+    axios.post('http://127.0.0.1:3001/posts', post)
       .then(response => {
         setPosts([response.data, ...posts]);
         setShowCreateModal(false);
@@ -309,7 +309,7 @@ function ForumPage() {
     const postToUpdate = posts.find(post => post.id === postId);
     const updatedComments = [comment, ...postToUpdate.comments];
 
-    axios.patch(`/posts/${postId}`, { comments: updatedComments })
+    axios.patch(`http://127.0.0.1:3001/posts/${postId}`, { comments: updatedComments })
       .then(response => {
         const updatedPosts = posts.map(post =>
           post.id === postId ? { ...post, comments: response.data.comments } : post
@@ -329,7 +329,7 @@ function ForumPage() {
     const updatedLikes = postToUpdate.likes + 1;
     const updatedLikedBy = [...postToUpdate.likedBy, userIP];
 
-    axios.patch(`/posts/${postId}`, { 
+    axios.patch(`https://127.0.0.1:3001/posts/${postId}`, { 
       likes: updatedLikes,
       likedBy: updatedLikedBy 
     })

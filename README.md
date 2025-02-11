@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# kdag-forum
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+**kdag-forum** is a React-based application designed to facilitate community discussions with dynamic features. It leverages modern libraries and frameworks, including `framer-motion` for animations, `axios` for HTTP requests, and `json-server` for a quick mock backend.
+
+---
+
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Available Scripts](#available-scripts)
+
+---
+
+## Features
+- Interactive UI built with React.
+- Routing with `react-router-dom`.
+- Styling powered by `styled-components`.
+- Smooth animations using `framer-motion`.
+- Local backend for development using `json-server`.
+- Utility functions for unique ID generation via `uuid`.
+
+---
+
+## Installation
+
+To get started with **kdag-forum**, clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/shashix07/kdag-forum.git
+cd kdag-forum
+npm install
+```
+
+---
 
 ## Available Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app in development mode.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `npm test`
+Launches the test runner in interactive watch mode.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `npm run server`
+Starts a local development backend in seperate terminal using `json-server` on [http://localhost:3001](http://localhost:3001).
 
-### `npm run build`
+In case of Failure of `npm run server` or continuous `Module not Found` Error,
+Use these 
+```bash
+npm i -g json-server
+npm add json-server
+json-server --watch src/data.json --port 3001
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Run in seperate Terminal 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Dependencies
 
-### `npm run eject`
+| Package           | Version    | Description                           |
+|-------------------|------------|---------------------------------------|
+| `axios`           | ^1.7.9     | Promise-based HTTP client            |
+| `cra-template`    | 1.2.0      | Create React App template             |
+| `framer-motion`   | ^12.4.1    | Animation library for React           |
+| `json-server`     | ^1.0.0     | Mock REST API server                  |
+| `react`           | ^19.0.0    | Core React library                    |
+| `react-dom`       | ^19.0.0    | React rendering to the DOM            |
+| `react-icons`     | ^5.4.0     | SVG icons for React                   |
+| `react-router-dom`| ^7.1.5     | Routing for React applications        |
+| `react-scripts`   | 5.0.1      | React build scripts                   |
+| `styled-components`| ^6.1.15   | CSS-in-JS styling library             |
+| `uuid`            | ^11.0.5    | Unique ID generator                   |
+| `web-vitals`      | ^4.2.4     | Performance metrics for web apps      |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
