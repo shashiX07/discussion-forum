@@ -329,7 +329,7 @@ function ForumPage() {
     const updatedLikes = postToUpdate.likes + 1;
     const updatedLikedBy = [...postToUpdate.likedBy, userIP];
 
-    axios.patch(`https://127.0.0.1:3001/posts/${postId}`, { 
+    axios.patch(`http://127.0.0.1:3001/posts/${postId}`, { 
       likes: updatedLikes,
       likedBy: updatedLikedBy 
     })
