@@ -49,13 +49,18 @@ const AccountIcon = styled.div`
 `;
 
 const Header = styled.header`
-  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin-bottom: 2rem;
   padding: 1rem 0;
+  position: relative;
   border-bottom: 2px solid #1e293b;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
 
 const Title = styled.h1`
@@ -63,6 +68,11 @@ const Title = styled.h1`
   background: linear-gradient(45deg, #ff6b6b, #ff4757);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-right: 9rem;
+    margin-bottom: 0.60rem;
+  }
 `;
 
 const CreatePostButton = styled.button`
@@ -81,6 +91,10 @@ const CreatePostButton = styled.button`
     background: #ff4757;
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  @media (max-width: 768px) {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
   }
 `;
 
