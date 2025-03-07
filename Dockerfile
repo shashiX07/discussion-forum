@@ -21,4 +21,4 @@ EXPOSE 3000
 EXPOSE 3001
 
 # Start both the React app and the JSON server
-CMD ["sh", "-c", "npm run server & npm start"]
+CMD ["npm", "start"]
