@@ -356,6 +356,7 @@ function ForumPage() {
       });
   };
 
+  // Delete the post only if the current user is the post owner
   const handleDeletePost = (postId) => {
     axios.delete(`https://forumapi-fm8x.onrender.com/posts/${postId}`)
       .then(() => {
@@ -372,98 +373,111 @@ function ForumPage() {
       <GlobalStyle />
       <ForumContainer>
         <Header>
-          <AccountIcon onClick={() => {
-            if (!userIP || !username) {
-              alert('Please wait while we load your account information');
-              return;
-            }
-            navigate('/account', { state: { userIP, username, posts } });
-          }}>
+          <AccountIcon
+            onClick={() => {
+              if (!userIP || !username) {
+                alert('Please wait while we load your account information');
+                return;
+              }
+              navigate('/account', { state: { userIP, username, posts } });
+            }}
+          >
             <svg viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
             </svg>
           </AccountIcon>
 
           <LogoTitleContainer>
             <Title>Topics</Title>
           </LogoTitleContainer>
+
           <CreatePostButton onClick={() => setShowCreateModal(true)}>
             + Create New Post
           </CreatePostButton>
         </Header>
 
-        {Array.isArray(posts) && posts
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort posts by createdAt
-          .map(post => {
-          const isLiked = post.likedBy.includes(userIP);
-          const isOwner = post.username === username;
-          return (
-            <PostCard key={post.id}>
-              <PostHeader onClick={() => setSelectedPost(selectedPost === post.id ? null : post.id)}>
-                <div>
-                  <Username>Posted by {post.username}</Username>
-                  <PostTitle>{post.title}</PostTitle>
-                </div>
-                <PostMeta>
-                  {isOwner && (
-                    <LikeButton 
-                      liked={isLiked}
-                      onClick={(e) => { e.stopPropagation(); handleLikePost(post.id); }}
-                    >
-                      ♥ {post.likes}
-                    </LikeButton>
+        {Array.isArray(posts) &&
+          posts
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .map(post => {
+              const isLiked = post.likedBy.includes(userIP);
+              const isOwner = post.username === username;
+              return (
+                <PostCard key={post.id}>
+                  <PostHeader
+                    onClick={() =>
+                      setSelectedPost(selectedPost === post.id ? null : post.id)
+                    }
+                  >
+                    <div>
+                      <Username>Posted by {post.username}</Username>
+                      <PostTitle>{post.title}</PostTitle>
+                    </div>
+                    <PostMeta>
+                      <LikeButton
+                        liked={isLiked}
+                        onClick={e => {
+                          e.stopPropagation();
+                          handleLikePost(post.id);
+                        }}
+                      >
+                        ♥ {post.likes}
+                      </LikeButton>
+                      {isOwner && (
+                        <DeleteButton
+                          onClick={e => {
+                            e.stopPropagation();
+                            handleDeletePost(post.id);
+                          }}
+                        >
+                          🗑️
+                        </DeleteButton>
+                      )}
+                    </PostMeta>
+                  </PostHeader>
+
+                  {selectedPost === post.id && (
+                    <>
+                      <p>{post.description}</p>
+                      <CommentSection>
+                        <Form onSubmit={e => handleAddComment(post.id, e)}>
+                          <TextArea
+                            value={newComment}
+                            onChange={e => setNewComment(e.target.value)}
+                            placeholder="Write a comment..."
+                          />
+                          <SubmitButton type="submit">Post Comment</SubmitButton>
+                        </Form>
+
+                        {post.comments.map(comment => (
+                          <CommentCard key={comment.id}>
+                            <Username>{comment.username}</Username>
+                            <p>{comment.text}</p>
+                          </CommentCard>
+                        ))}
+                      </CommentSection>
+                    </>
                   )}
-                  {isOwner && (
-                    <DeleteButton 
-                      onClick={(e) => { e.stopPropagation(); handleDeletePost(post.id); }}
-                    >
-                      🗑️
-                    </DeleteButton>
-                  )}
-                </PostMeta>
-              </PostHeader>
-
-              {selectedPost === post.id && (
-                <>
-                  <p>{post.description}</p>
-
-                  <CommentSection>
-                    <Form onSubmit={(e) => handleAddComment(post.id, e)}>
-                      <TextArea
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="Write a comment..."
-                      />
-                      <SubmitButton type="submit">Post Comment</SubmitButton>
-                    </Form>
-
-                    {post.comments.map(comment => (
-                      <CommentCard key={comment.id}>
-                        <Username>{comment.username}</Username>
-                        <p>{comment.text}</p>
-                      </CommentCard>
-                    ))}
-                  </CommentSection>
-                </>
-              )}
-            </PostCard>
-          )
-        })}
+                </PostCard>
+              );
+            })}
       </ForumContainer>
 
       {showCreateModal && (
         <ModalOverlay onClick={() => setShowCreateModal(false)}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
+          <ModalContent onClick={e => e.stopPropagation()}>
             <h2>Create New Post</h2>
             <Form onSubmit={handleCreatePost}>
               <Input
                 value={newPost.title}
-                onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                onChange={e => setNewPost({ ...newPost, title: e.target.value })}
                 placeholder="Post Title"
               />
               <TextArea
                 value={newPost.description}
-                onChange={(e) => setNewPost({ ...newPost, description: e.target.value })}
+                onChange={e =>
+                  setNewPost({ ...newPost, description: e.target.value })
+                }
                 placeholder="Post Description"
               />
               <SubmitButton type="submit">Create Post</SubmitButton>

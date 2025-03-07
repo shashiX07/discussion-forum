@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 const AccountContainer = styled.div`
   width: 100vw;
-  height: auto;
+  min-height: 100vh;
+  height: 100vh;
   background: #0f172a;
   padding: 2rem;
 `;
