@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    height: auto;
     background: #0f172a;
     color: #f8fafc;
   }
@@ -28,11 +29,6 @@ const LogoTitleContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-`;
-
-const LogoImg = styled.img`
-  height: 40px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 `;
 
 const AccountIcon = styled.div`
@@ -136,6 +132,24 @@ const LikeButton = styled.button`
   &:hover {
     background: rgba(255, 255, 255, 0.1);
     color: #ff6b6b;
+  }
+`;
+
+const DeleteButton = styled.button`
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ff4757;
   }
 `;
 
@@ -244,23 +258,19 @@ function ForumPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch user IP and generate username
     axios.get('https://api.ipify.org?format=json')
       .then(response => {
         const ip = response.data.ip;
         setUserIP(ip);
-        // Generate username from last two octets of IP
         const octets = ip.split('.');
         const generatedUsername = `User_${octets.slice(-2).join('_')}`;
         setUsername(generatedUsername);
       })
       .catch(() => {
-        // Fallback if IP fetch fails
         const fallbackUsername = `User_${Math.floor(Math.random() * 1000)}`;
         setUsername(fallbackUsername);
       });
 
-    // Fetch posts sorted by timestamp
     axios.get('https://forumapi-fm8x.onrender.com/posts?_sort=createdAt&_order=desc')
       .then(response => {
         setPosts(response.data);
@@ -324,10 +334,12 @@ function ForumPage() {
 
   const handleLikePost = (postId) => {
     const postToUpdate = posts.find(post => post.id === postId);
-    if (postToUpdate.likedBy.includes(userIP)) return;
+    const isLiked = postToUpdate.likedBy.includes(userIP);
 
-    const updatedLikes = postToUpdate.likes + 1;
-    const updatedLikedBy = [...postToUpdate.likedBy, userIP];
+    const updatedLikes = isLiked ? postToUpdate.likes - 1 : postToUpdate.likes + 1;
+    const updatedLikedBy = isLiked
+      ? postToUpdate.likedBy.filter(ip => ip !== userIP)
+      : [...postToUpdate.likedBy, userIP];
 
     axios.patch(`https://forumapi-fm8x.onrender.com/posts/${postId}`, { 
       likes: updatedLikes,
@@ -340,7 +352,18 @@ function ForumPage() {
         setPosts(updatedPosts);
       })
       .catch(error => {
-        console.error('Error liking post:', error);
+        console.error('Error liking/unliking post:', error);
+      });
+  };
+
+  const handleDeletePost = (postId) => {
+    axios.delete(`https://forumapi-fm8x.onrender.com/posts/${postId}`)
+      .then(() => {
+        const updatedPosts = posts.filter(post => post.id !== postId);
+        setPosts(updatedPosts);
+      })
+      .catch(error => {
+        console.error('Error deleting post:', error);
       });
   };
 
@@ -362,13 +385,8 @@ function ForumPage() {
           </AccountIcon>
 
           <LogoTitleContainer>
-            <LogoImg 
-              src='https://www.kdagiitkgp.com/static/media/KDAG-textnew.ad514bad3b46ed6de9a3.png'
-              alt="Forum Logo" 
-            />
-            <Title>Kdag-Topics</Title>
+            <Title>Topics</Title>
           </LogoTitleContainer>
-
           <CreatePostButton onClick={() => setShowCreateModal(true)}>
             + Create New Post
           </CreatePostButton>
@@ -378,6 +396,7 @@ function ForumPage() {
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort posts by createdAt
           .map(post => {
           const isLiked = post.likedBy.includes(userIP);
+          const isOwner = post.username === username;
           return (
             <PostCard key={post.id}>
               <PostHeader onClick={() => setSelectedPost(selectedPost === post.id ? null : post.id)}>
@@ -386,12 +405,21 @@ function ForumPage() {
                   <PostTitle>{post.title}</PostTitle>
                 </div>
                 <PostMeta>
-                  <LikeButton 
-                    liked={isLiked}
-                    onClick={(e) => { e.stopPropagation(); handleLikePost(post.id); }}
-                  >
-                    ♥ {post.likes}
-                  </LikeButton>
+                  {isOwner && (
+                    <LikeButton 
+                      liked={isLiked}
+                      onClick={(e) => { e.stopPropagation(); handleLikePost(post.id); }}
+                    >
+                      ♥ {post.likes}
+                    </LikeButton>
+                  )}
+                  {isOwner && (
+                    <DeleteButton 
+                      onClick={(e) => { e.stopPropagation(); handleDeletePost(post.id); }}
+                    >
+                      🗑️
+                    </DeleteButton>
+                  )}
                 </PostMeta>
               </PostHeader>
 

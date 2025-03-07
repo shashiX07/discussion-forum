@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const AccountContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: auto;
   background: #0f172a;
   padding: 2rem;
 `;
@@ -98,14 +98,11 @@ function Account() {
     return null;
   }
 
-  const userPosts = posts
-    .filter(post => post.username === username)
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const userPosts = posts.filter(post => post.username === username);
 
   return (
     <AccountContainer>
-      <BackButton onClick={() => navigate('/')}>← Back to Forum</BackButton>
-      
+      <BackButton onClick={() => navigate('/')}>Back to Forum</BackButton>
       <AccountHeader>
         <LargeAccountIcon>
           <svg viewBox="0 0 24 24">
@@ -115,28 +112,14 @@ function Account() {
         <UserInfo>Username: {username}</UserInfo>
         <UserInfo>IP Address: {userIP}</UserInfo>
       </AccountHeader>
-
-      <h2 style={{ color: 'white' }}>Your Posts ({userPosts.length})</h2>
       <UserPosts>
         {userPosts.map(post => (
           <UserPostCard key={post.id}>
-            <PostDate>
-              Posted on {new Date(post.createdAt).toLocaleDateString()} at{' '}
-              {new Date(post.createdAt).toLocaleTimeString()}
-            </PostDate>
+            <PostDate>Posted on: {new Date(post.createdAt).toLocaleString()}</PostDate>
             <h3>{post.title}</h3>
             <p>{post.description}</p>
-            <div style={{ marginTop: '1rem', color: '#94a3b8' }}>
-              ♥ {post.likes} Likes • {post.comments.length} Comments
-            </div>
           </UserPostCard>
         ))}
-        
-        {userPosts.length === 0 && (
-          <div style={{ textAlign: 'center', color: '#94a3b8' }}>
-            No posts created yet.
-          </div>
-        )}
       </UserPosts>
     </AccountContainer>
   );
